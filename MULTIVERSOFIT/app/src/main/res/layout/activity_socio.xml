@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/socio"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
+
+    <!-- Contenedor principal -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardSocio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnAsistencias"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        android:layout_margin="20dp"
+        android:padding="20dp"
+        app:cardBackgroundColor="@android:color/transparent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/card_border">
+
+            <!-- QR -->
+            <ImageView
+                android:id="@+id/imgQr"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_marginBottom="20dp"
+                android:contentDescription="Código QR" />
+
+            <!-- DNI -->
+            <TextView
+                android:id="@+id/tvDni"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="DNI: 12345678"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Estado Membresía -->
+            <TextView
+                android:id="@+id/tvEstadoMembresia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:text="Membresía: Activa"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <!-- Fecha Fin Membresía -->
+            <TextView
+                android:id="@+id/tvFinMembresia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vence: 20/12/2024"
+                android:textColor="#F3F4F8"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Botón Asistencias -->
+    <Button
+        android:id="@+id/btnAsistencias"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_margin="20dp"
+        android:layout_marginBottom="128dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="sans-serif-medium"
+        android:text="Ver mis asistencias"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

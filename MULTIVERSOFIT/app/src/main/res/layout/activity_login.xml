@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:padding="24dp">
+
+    <!-- Logo del gimnasio -->
+    <ImageView
+        android:id="@+id/logoLogin"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/logo_gym1"
+        android:contentDescription="Logo Gimnasio"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="60dp" />
+
+    <!-- Campo Usuario -->
+
+    <!-- Campo Contraseña -->
+    <EditText
+        android:id="@+id/etUsuario"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_edittext"
+        android:hint="Usuario"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#BDBDBD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logoLogin" />
+
+    <EditText
+        android:id="@+id/etContrasena"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:hint="Contraseña"
+        android:padding="12dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#BDBDBD"
+        android:background="@drawable/bg_edittext"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@id/etUsuario"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Botón Ingresar -->
+    <Button
+        android:id="@+id/btnIngresar"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:text="Ingresar"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#CF1D0E0E"
+        android:padding="12dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@id/etContrasena"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Texto inferior -->
+    <TextView
+        android:id="@+id/tvNoCuenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿No tienes cuenta? Contáctanos"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/btnIngresar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

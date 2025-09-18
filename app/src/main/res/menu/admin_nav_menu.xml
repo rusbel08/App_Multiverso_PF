@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_clientes"
+        android:title="Socios"/>
+    <item
+        android:id="@+id/nav_consulta"
+        android:title="Consulta"/>
+    <item
+        android:id="@+id/nav_qr"
+        android:title="QR Asistencia"/>
+</menu>

@@ -1,0 +1,13 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Fondo transparente -->
+    <solid android:color="@android:color/transparent" />
+
+    <!-- Borde -->
+    <stroke
+        android:width="2dp"
+        android:color="#69FFFFFF"/> <!-- blanco, cámbialo si quieres -->
+
+    <!-- Esquinas redondeadas -->
+    <corners android:radius="20dp" />
+</shape>
