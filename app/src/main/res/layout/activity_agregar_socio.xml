@@ -1,162 +1,282 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mainAgregarSocio"
     android:layout_width="match_parent"
+    android:id="@+id/mainAgregarSocio"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
     android:padding="16dp">
 
-    <!-- Título -->
-    <TextView
-        android:id="@+id/tvTitulo"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Agregar Socio"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginTop="40dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:padding="20dp">
 
-    <!-- Label Nombre -->
-    <TextView
-        android:id="@+id/lblNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nombre Completo:"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/tvTitulo"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="12dp"/>
+        <!-- Título -->
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Agregar Socio"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="40dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="16dp"/>
 
-    <!-- Nombre completo -->
-    <EditText
-        android:id="@+id/etNombre"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Ingrese nombre completo"
-        android:textColor="@color/white"
-        android:inputType="textPersonName"
-        android:backgroundTint="@color/white"
-        android:textColorHint="@color/gray"
-        app:layout_constraintTop_toBottomOf="@id/lblNombre"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <!-- Nombre completo -->
+        <TextView
+            android:id="@+id/lblNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre Completo:"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/tvTitulo"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="12dp"/>
 
-    <!-- Label DNI -->
-    <TextView
-        android:id="@+id/lblDni"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DNI:"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/etNombre"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="12dp"/>
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Ingrese nombre completo"
+            android:textColor="@color/white"
+            android:inputType="textPersonName"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/gray"
+            app:layout_constraintTop_toBottomOf="@id/lblNombre"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- DNI -->
-    <EditText
-        android:id="@+id/etDni"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Ingrese DNI"
-        android:inputType="number"
-        android:backgroundTint="@color/white"
-        android:textColorHint="@color/gray"
-        app:layout_constraintTop_toBottomOf="@id/lblDni"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <!-- Edad -->
+        <TextView
+            android:id="@+id/lblEdad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edad:"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/etNombre"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="12dp"/>
 
+        <EditText
+            android:id="@+id/etEdad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Ingrese edad"
+            android:inputType="number"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/gray"
+            app:layout_constraintTop_toBottomOf="@id/lblEdad"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Label Fecha inicio -->
-    <TextView
-        android:id="@+id/lblFechaInicio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fecha de Inicio:"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/etDni"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="12dp"/>
+        <!-- DNI -->
+        <TextView
+            android:id="@+id/lblDni"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DNI:"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/etEdad"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="12dp"/>
 
-    <!-- Fecha inicio -->
-    <EditText
-        android:id="@+id/etFechaInicio"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="- Seleccione -"
-        android:focusable="false"
-        android:inputType="date"
-        android:backgroundTint="@color/white"
-        android:textColorHint="@color/gray"
-        app:layout_constraintTop_toBottomOf="@id/lblFechaInicio"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <EditText
+            android:id="@+id/etDni"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Ingrese DNI"
+            android:inputType="number"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/gray"
+            app:layout_constraintTop_toBottomOf="@id/lblDni"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Label Fecha vencimiento -->
-    <TextView
-        android:id="@+id/lblFechaVencimiento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fecha de Vencimiento:"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/etFechaInicio"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="12dp"/>
+        <!-- Sexo -->
+        <TextView
+            android:id="@+id/lblSexo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sexo:"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/etDni"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="12dp"/>
 
-    <!-- Fecha vencimiento -->
-    <EditText
-        android:id="@+id/etFechaVencimiento"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="- Seleccione - "
-        android:focusable="false"
-        android:inputType="date"
-        android:backgroundTint="@color/white"
-        android:textColorHint="@color/gray"
-        app:layout_constraintTop_toBottomOf="@id/lblFechaVencimiento"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <RadioGroup
+            android:id="@+id/rgSexo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/lblSexo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Estado -->
-    <Switch
-        android:id="@+id/swEstado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Activo"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/etFechaVencimiento"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"/>
+            <RadioButton
+                android:id="@+id/rbMasculino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Masculino"
+                android:textColor="@color/white"/>
 
-    <!-- Botón Guardar -->
-    <Button
-        android:id="@+id/btnGuardar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Guardar"
-        android:textStyle="bold"
-        android:backgroundTint="@color/black"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/swEstado"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"/>
+            <RadioButton
+                android:id="@+id/rbFemenino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Femenino"
+                android:textColor="@color/white"/>
+        </RadioGroup>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Celular -->
+        <TextView
+            android:id="@+id/lblCelular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Celular:"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/rgSexo"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="12dp"/>
+
+        <EditText
+            android:id="@+id/etCelular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Ingrese celular"
+            android:inputType="phone"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/gray"
+            app:layout_constraintTop_toBottomOf="@id/lblCelular"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Fecha inicio -->
+        <TextView
+            android:id="@+id/lblFechaInicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha Inicio:"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/etCelular"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="12dp"/>
+
+        <EditText
+            android:id="@+id/etFechaInicio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="- Seleccione -"
+            android:focusable="false"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/gray"
+            app:layout_constraintTop_toBottomOf="@id/lblFechaInicio"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Fecha fin -->
+        <TextView
+            android:id="@+id/lblFechaFin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha Fin:"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/etFechaInicio"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="12dp"/>
+
+        <EditText
+            android:id="@+id/etFechaFin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="- Seleccione -"
+            android:focusable="false"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/gray"
+            app:layout_constraintTop_toBottomOf="@id/lblFechaFin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Experiencia deportiva -->
+        <TextView
+            android:id="@+id/lblExperiencia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Experiencia Deportiva:"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/etFechaFin"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="12dp"/>
+
+        <LinearLayout
+            android:id="@+id/layoutExperiencia"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@id/lblExperiencia"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <CheckBox
+                android:id="@+id/cbPrincipiante"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Principiante"
+                android:textColor="@color/white"/>
+
+            <CheckBox
+                android:id="@+id/cbIntermedio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Intermedio"
+                android:textColor="@color/white"
+                android:layout_marginStart="12dp"/>
+
+            <CheckBox
+                android:id="@+id/cbAvanzado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Avanzado"
+                android:textColor="@color/white"
+                android:layout_marginStart="12dp"/>
+        </LinearLayout>
+
+        <!-- Botón Guardar -->
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:text="Guardar"
+            android:textStyle="bold"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/layoutExperiencia"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
