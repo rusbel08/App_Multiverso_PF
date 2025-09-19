@@ -180,6 +180,7 @@ public class AgregarSocioActivity extends AppCompatActivity {
         socio.put("fechaInicio", fechaInicio);
         socio.put("fechaFin", fechaFin);
         socio.put("experiencia", experiencia);
+        socio.put("estado",0); //(0 = activo, 1 = inactivo)
 
         // Guardar en Firestore
         db.collection("socios")
