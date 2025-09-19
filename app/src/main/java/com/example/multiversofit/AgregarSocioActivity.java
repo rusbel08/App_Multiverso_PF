@@ -170,25 +170,24 @@ public class AgregarSocioActivity extends AppCompatActivity {
         Timestamp fechaInicio = etFechaInicio.getTag() instanceof Timestamp ? (Timestamp) etFechaInicio.getTag() : null;
         Timestamp fechaFin = etFechaFin.getTag() instanceof Timestamp ? (Timestamp) etFechaFin.getTag() : null;
 
-
+        // Map sin el campo dni, porque será el ID del documento
         Map<String, Object> socio = new HashMap<>();
         socio.put("nombre", nombre);
         socio.put("edad", edad);
-        socio.put("dni", dni);
         socio.put("celular", celular);
         socio.put("sexo", sexo);
         socio.put("fechaInicio", fechaInicio);
         socio.put("fechaFin", fechaFin);
         socio.put("experiencia", experiencia);
-        socio.put("estado",0); //(0 = activo, 1 = inactivo)
+        socio.put("estado", 0); // (0 = activo, 1 = inactivo)
 
-        // Guardar en Firestore
+        // Guardar en Firestore, usando el DNI como ID del documento
         db.collection("socios")
                 .document(dni)
                 .set(socio)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(this, "Socio registrado correctamente", Toast.LENGTH_SHORT).show();
-                    finish(); // opcional, cierra la activity
+                    finish(); // opcional
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
