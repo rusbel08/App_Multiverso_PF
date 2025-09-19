@@ -73,6 +73,7 @@
             android:layout_height="wrap_content"
             android:hint="Ingrese edad"
             android:inputType="number"
+            android:textColor="@color/white"
             android:backgroundTint="@color/white"
             android:textColorHint="@color/gray"
             app:layout_constraintTop_toBottomOf="@id/lblEdad"
@@ -98,6 +99,7 @@
             android:layout_height="wrap_content"
             android:hint="Ingrese DNI"
             android:inputType="number"
+            android:textColor="@color/white"
             android:backgroundTint="@color/white"
             android:textColorHint="@color/gray"
             app:layout_constraintTop_toBottomOf="@id/lblDni"
@@ -154,19 +156,21 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="12dp"/>
 
+        <!-- Fecha inicio -->
         <EditText
             android:id="@+id/etCelular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
             android:hint="Ingrese celular"
             android:inputType="phone"
-            android:backgroundTint="@color/white"
+            android:textColor="@color/white"
             android:textColorHint="@color/gray"
-            app:layout_constraintTop_toBottomOf="@id/lblCelular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/lblCelular" />
 
-        <!-- Fecha inicio -->
         <TextView
             android:id="@+id/lblFechaInicio"
             android:layout_width="wrap_content"
@@ -185,6 +189,7 @@
             android:layout_height="wrap_content"
             android:hint="- Seleccione -"
             android:focusable="false"
+            android:textColor="@color/white"
             android:backgroundTint="@color/white"
             android:textColorHint="@color/gray"
             app:layout_constraintTop_toBottomOf="@id/lblFechaInicio"
@@ -210,6 +215,7 @@
             android:layout_height="wrap_content"
             android:hint="- Seleccione -"
             android:focusable="false"
+            android:textColor="@color/white"
             android:backgroundTint="@color/white"
             android:textColorHint="@color/gray"
             app:layout_constraintTop_toBottomOf="@id/lblFechaFin"
