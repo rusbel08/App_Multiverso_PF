@@ -12,12 +12,11 @@ public class SessionManager {
 
     private final SharedPreferences sp;
 
-
     public SessionManager(Context ctx) {
         sp = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE);
     }
 
-    /** Guarda la sesión del usuario logeado */
+    /** Guarda la sesión del usuario logueado */
     public void save(String username, String role, String dni) {
         sp.edit()
                 .putString(K_USERNAME, username)
@@ -25,7 +24,6 @@ public class SessionManager {
                 .putString(K_DNI, dni)
                 .apply();
     }
-
 
     /** ¿Hay sesión activa? */
     public boolean isLogged() {
@@ -37,7 +35,7 @@ public class SessionManager {
         return sp.getString(K_ROLE, "");
     }
 
-    /** Usuario actual (opcional) */
+    /** Usuario actual */
     public String username() {
         return sp.getString(K_USERNAME, "");
     }

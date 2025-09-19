@@ -4,18 +4,12 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import android.database.Cursor;
 
 public class AsistenciasActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private AsistenciasAdapter adapter;
-    private ConexionBD db;
+    private SqliteUsuario db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
