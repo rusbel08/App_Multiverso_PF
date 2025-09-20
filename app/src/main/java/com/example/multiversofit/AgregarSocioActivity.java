@@ -7,7 +7,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -18,8 +17,10 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -27,7 +28,8 @@ public class AgregarSocioActivity extends AppCompatActivity {
 
     private EditText etNombre, etEdad, etDni, etCelular, etFechaInicio, etFechaFin;
     private RadioGroup rgSexo;
-    private CheckBox cbPrincipiante, cbIntermedio, cbAvanzado;
+    // OJO: estos ids mapean a tus CheckBox actuales del XML
+    private CheckBox cbPrincipiante, cbIntermedio, cbAvanzado; // Atletismo, Natación, Gimnasio
     private Button btnGuardar;
 
     private FirebaseFirestore db; // instancia de Firestore
@@ -38,49 +40,33 @@ public class AgregarSocioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_agregar_socio);
 
         // Referencias a los campos
-        etNombre = findViewById(R.id.etNombre);
-        etEdad = findViewById(R.id.etEdad);
-        etDni = findViewById(R.id.etDni);
-        etCelular = findViewById(R.id.etCelular);
-        rgSexo = findViewById(R.id.rgSexo);
+        etNombre      = findViewById(R.id.etNombre);
+        etEdad        = findViewById(R.id.etEdad);
+        etDni         = findViewById(R.id.etDni);
+        etCelular     = findViewById(R.id.etCelular);
+        rgSexo        = findViewById(R.id.rgSexo);
         etFechaInicio = findViewById(R.id.etFechaInicio);
-        etFechaFin = findViewById(R.id.etFechaFin);
-        cbPrincipiante = findViewById(R.id.cbPrincipiante);
-        cbIntermedio = findViewById(R.id.cbIntermedio);
-        cbAvanzado = findViewById(R.id.cbAvanzado);
+        etFechaFin    = findViewById(R.id.etFechaFin);
+
+        // CheckBox del XML (ids actuales)
+        cbPrincipiante = findViewById(R.id.cbAtletismo);
+        cbIntermedio   = findViewById(R.id.cbNatacion);
+        cbAvanzado     = findViewById(R.id.cbgimnacio); // id tal cual en tu XML
+
         btnGuardar = findViewById(R.id.btnGuardar);
 
         // Instancia Firestore
         db = FirebaseFirestore.getInstance();
 
-        // Abrir calendarios
+        // Calendarios
         etFechaInicio.setOnClickListener(v -> mostrarCalendario(etFechaInicio));
         etFechaFin.setOnClickListener(v -> mostrarCalendario(etFechaFin));
 
         // Guardar socio
         btnGuardar.setOnClickListener(v -> validarDniYGuardar());
 
-        // Hacer que los checkbox actúen como radio buttons (solo uno a la vez)
-        cbPrincipiante.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                cbIntermedio.setChecked(false);
-                cbAvanzado.setChecked(false);
-            }
-        });
-
-        cbIntermedio.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                cbPrincipiante.setChecked(false);
-                cbAvanzado.setChecked(false);
-            }
-        });
-
-        cbAvanzado.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                cbPrincipiante.setChecked(false);
-                cbIntermedio.setChecked(false);
-            }
-        });
+        // IMPORTANTE: Eliminamos cualquier lógica que desmarque otras casillas.
+        // (No hay setOnCheckedChangeListener aquí)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainAgregarSocio), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -92,22 +78,19 @@ public class AgregarSocioActivity extends AppCompatActivity {
     // Metodo para mostrar Calendario
     private void mostrarCalendario(EditText campoFecha) {
         final Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
+        int year  = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int day   = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this,
                 (view, year1, month1, dayOfMonth) -> {
-                    // Usamos Calendar para obtener la fecha en formato Date
                     Calendar selectedDate = Calendar.getInstance();
                     selectedDate.set(year1, month1, dayOfMonth);
 
-                    // Mostrar en el EditText con formato dd/MM/yyyy
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                     campoFecha.setText(sdf.format(selectedDate.getTime()));
 
-                    // Guardamos la fecha como tag para Firestore (Timestamp)
                     campoFecha.setTag(new Timestamp(selectedDate.getTime()));
                 },
                 year, month, day
@@ -121,7 +104,7 @@ public class AgregarSocioActivity extends AppCompatActivity {
         String dni = etDni.getText().toString().trim();
 
         if (dni.isEmpty()) {
-            Toast.makeText(this, "Debes ingresar un DNI", Toast.LENGTH_SHORT).show();
+            ToastUtils.showCustomToast(this, "Debes ingresar un DNI");
             return;
         }
 
@@ -130,29 +113,28 @@ public class AgregarSocioActivity extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        Toast.makeText(this, "Ya existe un socio registrado con este DNI", Toast.LENGTH_SHORT).show();
+                        ToastUtils.showCustomToast(this, "Ya existe un socio registrado con este DNI");
                     } else {
                         guardarSocio(dni);
                     }
                 })
                 .addOnFailureListener(e ->
-                        Toast.makeText(this, "Error al validar DNI: " + e.getMessage(), Toast.LENGTH_SHORT).show()
-                );
+                        ToastUtils.showCustomToast(this, "Error al validar DNI: " + e.getMessage()));
     }
 
-    //Metodo para guardar socio en Firestore
+    // Metodo para guardar socio en Firestore (con experiencias MÚLTIPLES)
     private void guardarSocio(String dni) {
-        String nombre = etNombre.getText().toString().trim();
-        String edad = etEdad.getText().toString().trim();
+        String nombre  = etNombre.getText().toString().trim();
+        String edad    = etEdad.getText().toString().trim();
         String celular = etCelular.getText().toString().trim();
 
         // Validación básica
         if (nombre.isEmpty() || edad.isEmpty() || dni.isEmpty() || celular.isEmpty()) {
-            Toast.makeText(this, "Completa todos los campos obligatorios", Toast.LENGTH_SHORT).show();
+            ToastUtils.showCustomToast(this, "Completa todos los campos obligatorios");
             return;
         }
 
-        // Obtener sexo
+        // Sexo
         int selectedId = rgSexo.getCheckedRadioButtonId();
         String sexo = "";
         if (selectedId != -1) {
@@ -160,37 +142,41 @@ public class AgregarSocioActivity extends AppCompatActivity {
             sexo = rbSexo.getText().toString();
         }
 
-        // Experiencia
-        String experiencia = "";
-        if (cbPrincipiante.isChecked()) experiencia = "Principiante";
-        else if (cbIntermedio.isChecked()) experiencia = "Intermedio";
-        else if (cbAvanzado.isChecked()) experiencia = "Avanzado";
+        // EXPERIENCIAS MÚLTIPLES -> se guarda como ARRAY en Firestore
+        List<String> experiencias = new ArrayList<>();
+        if (cbPrincipiante.isChecked()) experiencias.add("Atletismo");
+        if (cbIntermedio.isChecked())   experiencias.add("Natación");
+        if (cbAvanzado.isChecked())     experiencias.add("Gimnasio"); // corrige ortografía en tus valores si deseas
+
+        if (experiencias.isEmpty()) {
+            ToastUtils.showCustomToast(this, "Selecciona al menos una experiencia");
+            return;
+        }
 
         // Fechas como Timestamp
         Timestamp fechaInicio = etFechaInicio.getTag() instanceof Timestamp ? (Timestamp) etFechaInicio.getTag() : null;
-        Timestamp fechaFin = etFechaFin.getTag() instanceof Timestamp ? (Timestamp) etFechaFin.getTag() : null;
+        Timestamp fechaFin    = etFechaFin.getTag() instanceof Timestamp ? (Timestamp) etFechaFin.getTag() : null;
 
-        // Map sin el campo dni, porque será el ID del documento
+        // Map (dni será el ID del documento)
         Map<String, Object> socio = new HashMap<>();
         socio.put("nombre", nombre);
-        socio.put("edad", edad);
+        socio.put("edad",  edad);
         socio.put("celular", celular);
-        socio.put("sexo", sexo);
+        socio.put("sexo",   sexo);
         socio.put("fechaInicio", fechaInicio);
-        socio.put("fechaFin", fechaFin);
-        socio.put("experiencia", experiencia);
-        socio.put("estado", 0); // (0 = activo, 1 = inactivo)
+        socio.put("fechaFin",    fechaFin);
+        socio.put("experiencia", experiencias); // <-- ARRAY en el mismo campo "experiencia"
+        socio.put("estado", 0); // 0 = activo, 1 = inactivo
 
-        // Guardar en Firestore, usando el DNI como ID del documento
+        // Guardar en Firestore
         db.collection("socios")
                 .document(dni)
                 .set(socio)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Socio registrado correctamente", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showCustomToast(this, "Socio registrado correctamente");
                     finish(); // opcional
                 })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
+                .addOnFailureListener(e ->
+                        ToastUtils.showCustomToast(this, "Error: " + e.getMessage()));
     }
 }

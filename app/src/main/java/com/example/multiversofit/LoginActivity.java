@@ -2,13 +2,9 @@ package com.example.multiversofit;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         btnIngresar.setOnClickListener(v -> doLogin());
-        tvNoCuenta.setOnClickListener(v -> showCustomToast("Comuníquese con recepción"));
+        tvNoCuenta.setOnClickListener(v -> ToastUtils.showCustomToast(this,"Comuníquese con recepción"));
     }
 
     private void doLogin() {
@@ -58,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         String p = etContrasena.getText().toString();
 
         if (u.isEmpty() || p.isEmpty()) {
-            showCustomToast("Completa usuario y contraseña");
+            ToastUtils.showCustomToast(this,"Completa usuario y contraseña");
             return;
         }
 
@@ -66,12 +62,12 @@ public class LoginActivity extends AppCompatActivity {
         SqliteUsuario.User user = db.authenticate(u, p);
 
         if (user == null) {
-            showCustomToast("Credenciales inválidas");
+            ToastUtils.showCustomToast(this,"Credenciales inválidas");
             return;
         }
 
         session.save(user.username, user.role, user.dni);
-        goToRole(user.role);  // <-- sin paréntesis
+        goToRole(user.role);
         finish();
     }
 
@@ -82,17 +78,4 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    // Toast personalizado (tuyo)
-    private void showCustomToast(String msg) {
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.custom_toast, findViewById(android.R.id.content), false);
-        TextView text = layout.findViewById(R.id.tvMessage);
-        text.setText(msg);
-
-        Toast toast = new Toast(this);
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.BOTTOM, 0, 120);
-        toast.setView(layout);
-        toast.show();
-    }
 }

@@ -10,4 +10,32 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/gray</item>
     </style>
+    <!-- Overlay oscuro para MaterialAlertDialog -->
+    <style name="ThemeOverlay.MultiversoFit.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <!-- Fondo del cuadro: negro con ~80% opacidad -->
+        <item name="colorSurface">#CC1E1E1E</item>
+        <!-- Color de texto dentro del cuadro -->
+        <item name="colorOnSurface">@android:color/white</item>
+
+        <!-- Esquinas redondeadas -->
+        <item name="shapeAppearanceSmallComponent">@style/DialogShapeRounded</item>
+
+        <!-- Tipografías del título y cuerpo -->
+        <item name="materialAlertDialogTitleTextStyle">@style/DialogTitleText</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/DialogBodyText</item>
+    </style>
+
+    <style name="DialogShapeRounded" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="DialogTitleText" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="DialogBodyText" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>

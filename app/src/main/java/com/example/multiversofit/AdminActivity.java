@@ -1,6 +1,5 @@
 package com.example.multiversofit;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -11,12 +10,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AdminActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNav;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,34 +29,30 @@ public class AdminActivity extends AppCompatActivity {
 
         bottomNav = findViewById(R.id.bottom_navigation);
 
-        // Mostrar Socios por defecto al entrar
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new SociosFragment())
-                    .commit();
-        }
-
         bottomNav.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
+            Fragment f = null;
+            int id = item.getItemId();
 
-            if (item.getItemId() == R.id.nav_clientes) {
-                selectedFragment = new SociosFragment();
-            } /*else if (item.getItemId() == R.id.nav_consulta) {
-                selectedFragment = new ConsultaFragment(); // crear luego
-            } else if (item.getItemId() == R.id.nav_qr) {
-                selectedFragment = new QrFragment(); // crear luego
+            if (id == R.id.nav_clientes) {
+                f = new SociosFragment();                 // pestaña "Socios"
+            } else if (id == R.id.nav_consulta) {
+                f = new ConsultaSociosFragment();         // pestaña "Consulta" (listado/buscar/editar/baja)
+            } /*else if (id == R.id.nav_qr) {
+                f = new QrFragment();
             }*/
 
-            if (selectedFragment != null) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, selectedFragment)
-                        .commit();
-            }
+            if (f == null) return false;
 
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .replace(R.id.fragment_container, f)
+                    .commit();
             return true;
         });
 
-
-
+        // Selecciona la pestaña inicial
+        if (savedInstanceState == null) {
+            bottomNav.setSelectedItemId(R.id.nav_clientes);
+        }
     }
 }

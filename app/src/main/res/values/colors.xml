@@ -5,5 +5,9 @@
     <color name="boton">#992C4B</color>
     <color name="nav_active">#B2FFEB3B</color>
     <color name="gray">#929595</color>
+    <color name="card_bg">#FFF3E6</color>
+    <color name="dialog_positive">#6AE68A</color>  <!-- verde legible -->
+    <color name="dialog_negative">#B0B0B0</color>  <!-- gris claro -->
+
 
 </resources>

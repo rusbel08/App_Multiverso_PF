@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MULTIVERSOFIT</string>
+    <string name="desc_editar">Editar socio</string>
+    <string name="desc_borrar">Borrar socio</string>
 </resources>

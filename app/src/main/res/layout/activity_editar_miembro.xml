@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
-    android:padding="16dp">
+    android:paddingTop="24dp"
+    android:paddingBottom="24dp">
 
     <!-- Título -->
     <TextView
@@ -18,145 +19,231 @@
         android:textSize="22sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:layout_marginTop="40dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="8dp"/>
 
-    <!-- Label Nombre -->
-    <TextView
-        android:id="@+id/lblNombre"
-        android:layout_width="wrap_content"
+    <!-- Contenedor centrado con borde sutil -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardEditar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Nombre Completo:"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/tvTitulo"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="12dp"/>
-
-    <!-- Nombre completo -->
-    <EditText
-        android:id="@+id/etNombre"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Ingrese nombre completo"
-        android:textColor="@color/white"
-        android:inputType="textPersonName"
-        android:backgroundTint="@color/white"
-        android:textColorHint="@color/gray"
-        app:layout_constraintTop_toBottomOf="@id/lblNombre"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- Label DNI -->
-    <TextView
-        android:id="@+id/lblDni"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DNI:"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/etNombre"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="12dp"/>
-
-    <!-- DNI -->
-    <EditText
-        android:id="@+id/etDni"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Ingrese DNI"
-        android:inputType="number"
-        android:backgroundTint="@color/white"
-        android:textColorHint="@color/gray"
-        app:layout_constraintTop_toBottomOf="@id/lblDni"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-
-    <!-- Label Fecha inicio -->
-    <TextView
-        android:id="@+id/lblFechaInicio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fecha de Inicio:"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/etDni"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="12dp"/>
-
-    <!-- Fecha inicio -->
-    <EditText
-        android:id="@+id/etFechaInicio"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="- Seleccione -"
-        android:focusable="false"
-        android:inputType="date"
-        android:backgroundTint="@color/white"
-        android:textColorHint="@color/gray"
-        app:layout_constraintTop_toBottomOf="@id/lblFechaInicio"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- Label Fecha vencimiento -->
-    <TextView
-        android:id="@+id/lblFechaVencimiento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fecha de Vencimiento:"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/etFechaInicio"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="12dp"/>
-
-    <!-- Fecha vencimiento -->
-    <EditText
-        android:id="@+id/etFechaVencimiento"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="- Seleccione - "
-        android:focusable="false"
-        android:inputType="date"
-        android:backgroundTint="@color/white"
-        android:textColorHint="@color/gray"
-        app:layout_constraintTop_toBottomOf="@id/lblFechaVencimiento"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- Estado -->
-    <Switch
-        android:id="@+id/swEstado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Activo"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/etFechaVencimiento"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"/>
-
-    <!-- Botón Guardar -->
-    <Button
-        android:id="@+id/btnActualizar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Actualizar"
-        android:textStyle="bold"
-        android:backgroundTint="@color/black"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/swEstado"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+
+        app:cardCornerRadius="14dp"
+        app:cardUseCompatPadding="false"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="#0D000000"
+    app:strokeColor="#26FFFFFF"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- DNI -->
+        <TextView
+            android:id="@+id/lblDni"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DNI:"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/etDni"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ingrese DNI"
+            android:inputType="number"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/gray"
+            android:enabled="false"
+            android:layout_marginTop="6dp"/>
+
+        <!-- Nombre -->
+        <TextView
+            android:id="@+id/lblNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre Completo:"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="14dp"/>
+
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ingrese nombre completo"
+            android:textColor="@color/white"
+            android:inputType="textPersonName"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/gray"
+            android:layout_marginTop="6dp"/>
+
+        <!-- Edad -->
+        <TextView
+            android:id="@+id/lblEdad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edad:"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="14dp"/>
+
+        <EditText
+            android:id="@+id/etEdad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ingrese edad"
+            android:inputType="number"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/gray"
+            android:layout_marginTop="6dp"/>
+
+        <!-- Sexo -->
+        <TextView
+            android:id="@+id/lblSexo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sexo:"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="14dp"/>
+
+        <RadioGroup
+            android:id="@+id/rgSexo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="6dp">
+
+            <RadioButton
+                android:id="@+id/rbMasculino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Masculino"
+                android:textColor="@color/white"/>
+
+            <RadioButton
+                android:id="@+id/rbFemenino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Femenino"
+                android:textColor="@color/white"
+                android:layout_marginStart="24dp"/>
+        </RadioGroup>
+
+        <!-- Teléfono -->
+        <TextView
+            android:id="@+id/lblCelular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Teléfono:"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="14dp"/>
+
+        <EditText
+            android:id="@+id/etCelular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ingrese teléfono"
+            android:inputType="phone"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/gray"
+            android:layout_marginTop="6dp"/>
+
+        <!-- Fecha de Inicio -->
+        <TextView
+            android:id="@+id/lblFechaInicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha de Inicio:"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="14dp"/>
+
+        <EditText
+            android:id="@+id/etFechaInicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="- Seleccione -"
+            android:focusable="false"
+            android:inputType="date"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/gray"
+            android:layout_marginTop="6dp"/>
+
+        <!-- Fecha de Vencimiento -->
+        <TextView
+            android:id="@+id/lblFechaVencimiento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha de Vencimiento:"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="14dp"/>
+
+        <EditText
+            android:id="@+id/etFechaVencimiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="- Seleccione -"
+            android:focusable="false"
+            android:inputType="date"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/gray"
+            android:layout_marginTop="6dp"/>
+
+        <!-- Estado -->
+        <Switch
+            android:id="@+id/swEstado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activo"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="18dp"/>
+
+        <!-- Botón Actualizar -->
+        <Button
+            android:id="@+id/btnActualizar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actualizar"
+            android:textStyle="bold"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="4dp"/>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
