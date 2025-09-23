@@ -12,6 +12,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etUsuario, etContrasena;
@@ -51,24 +55,76 @@ public class LoginActivity extends AppCompatActivity {
 
     private void doLogin() {
         String u = etUsuario.getText().toString().trim();
-        String p = etContrasena.getText().toString();
+        String p = etContrasena.getText().toString().trim();
 
         if (u.isEmpty() || p.isEmpty()) {
-            ToastUtils.showCustomToast(this,"Completa usuario y contraseña");
+            ToastUtils.showCustomToast(this, "Completa usuario y contraseña");
             return;
         }
 
-        SqliteUsuario db = SqliteUsuario.get(this);
-        SqliteUsuario.User user = db.authenticate(u, p);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        if (user == null) {
-            ToastUtils.showCustomToast(this,"Credenciales inválidas");
-            return;
-        }
+        db.collection("usuarios")
+                .whereEqualTo("username", u)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful() || task.getResult().isEmpty()) {
+                        ToastUtils.showCustomToast(this, "Credenciales inválidas");
+                        return;
+                    }
 
-        session.save(user.username, user.role, user.dni);
-        goToRole(user.role);
-        finish();
+                    QueryDocumentSnapshot doc = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+
+                    String storedPass = doc.getString("pass");
+                    if (storedPass == null || !storedPass.equals(p)) {
+                        ToastUtils.showCustomToast(this, "Credenciales inválidas");
+                        return;
+                    }
+
+                    String userId = doc.getId();
+                    String username = doc.getString("username");
+                    String role = doc.getString("role");
+
+                    //  Si el rol es SOCIO, valida estado en colección "socios"
+                    if ("SOCIO".equalsIgnoreCase(role)) {
+                        db.collection("socios").document(userId)
+                                .get()
+                                .addOnSuccessListener(socioDoc -> {
+                                    if (!socioDoc.exists()) {
+                                        ToastUtils.showCustomToast(this, "No se encontró socio asociado");
+                                        return;
+                                    }
+
+                                    Object estadoObj = socioDoc.get("estado");
+                                    int estado = 0;
+                                    if (estadoObj instanceof Number) {
+                                        estado = ((Number) estadoObj).intValue();
+                                    }
+
+                                    if (estado == 1) {
+                                        ToastUtils.showCustomToast(this, "Tu usuario está INACTIVO, comunícate con recepción");
+                                        return;
+                                    }
+
+                                    // Guardar sesión y continuar
+                                    session.save(username, role, userId);
+                                    goToRole(role);
+                                    finish();
+                                })
+                                .addOnFailureListener(e -> {
+                                    ToastUtils.showCustomToast(this, "Error al validar socio: " + e.getMessage());
+                                });
+
+                    } else {
+                        // Si NO es SOCIO, entra directo
+                        session.save(username, role, userId);
+                        goToRole(role);
+                        finish();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    ToastUtils.showCustomToast(this, "Error al conectar: " + e.getMessage());
+                });
     }
 
     private void goToRole(String role) {

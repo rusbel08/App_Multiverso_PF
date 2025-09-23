@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/nav_clientes"
-        android:title="Socios"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
         android:id="@+id/nav_consulta"
-        android:title="Consulta"/>
+        android:title="Socios" />
     <item
         android:id="@+id/nav_qr"
-        android:title="QR Asistencia"/>
+        android:title="QR Asistencia" />
 </menu>

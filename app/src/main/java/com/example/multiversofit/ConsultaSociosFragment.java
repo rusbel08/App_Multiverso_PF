@@ -1,6 +1,6 @@
 package com.example.multiversofit;
 
-//import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,22 +8,23 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import android.content.DialogInterface;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,16 +38,23 @@ public class ConsultaSociosFragment extends Fragment
 
     private EditText etBuscar;
     private RecyclerView rv;
+    private FloatingActionButton fabAgregarSocios;
+    private Spinner spFiltroEstado;
+
+    private final List<Socio> sociosOriginal = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         View root = inflater.inflate(R.layout.fragment_consulta_socios, container, false);
 
         etBuscar = root.findViewById(R.id.etBuscarDni);
         rv = root.findViewById(R.id.rvSocios);
+        spFiltroEstado = root.findViewById(R.id.spFiltroEstado);
+        fabAgregarSocios = root.findViewById(R.id.fabAgregarSocios);
 
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new SocioAdapter(this);
@@ -54,46 +62,91 @@ public class ConsultaSociosFragment extends Fragment
 
         db = FirebaseFirestore.getInstance();
 
-        // Carga en vivo de socios (DNI como ID)
+        // Spinner: Todos, Activo, Inactivo
+        String[] estados = {"Todos", "Activo", "Inactivo"};
+        ArrayAdapter<String> spAdapter = new ArrayAdapter<>(requireContext(),
+                R.layout.spinner_item, estados);
+        spAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spFiltroEstado.setAdapter(spAdapter);
+        spFiltroEstado.setSelection(0);
+
+        // Cuando cambie el spinner
+        spFiltroEstado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                aplicarFiltros();
+            }
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        // Escucha en vivo de Firestore
         db.collection("socios")
                 .addSnapshotListener((snap, e) -> {
                     if (e != null || snap == null) return;
 
-                    List<Socio> list = new ArrayList<>();
+                    sociosOriginal.clear();
                     for (DocumentSnapshot d : snap.getDocuments()) {
                         String dni = d.getId();
-                        Map<String,Object> m = d.getData();
+                        Map<String, Object> m = d.getData();
                         if (m == null) continue;
-                        String nombre = (String) m.get("nombre");
-                        Number estadoN = (Number) m.get("estado");
-                        int estado = estadoN != null ? estadoN.intValue() : 0;
-                        list.add(new Socio(dni, nombre, estado));
+                        String nombre = m.get("nombre") instanceof String ? (String) m.get("nombre") : "";
+                        // normalizar estado (puede venir como Long/Double/Number)
+                        int estado = 0;
+                        Object estadoObj = m.get("estado");
+                        if (estadoObj instanceof Number) {
+                            estado = ((Number) estadoObj).intValue();
+                        }
+                        sociosOriginal.add(new Socio(dni, nombre, estado));
                     }
-                    adapter.setItems(list);
+
+                    // cada vez que recargamos datos aplicamos los filtros vigentes
+                    aplicarFiltros();
                 });
 
         // Filtro por DNI
         etBuscar.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s,int i,int i1,int i2){}
-            @Override public void onTextChanged(CharSequence s,int i,int i1,int i2){
-                adapter.filterByDni(s.toString());
+            @Override public void beforeTextChanged(CharSequence s,int start,int count,int after){}
+            @Override public void onTextChanged(CharSequence s,int start,int before,int count){
+                aplicarFiltros();
             }
             @Override public void afterTextChanged(Editable s){}
+        });
+
+        fabAgregarSocios.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AgregarSocioActivity.class);
+            startActivity(intent);
         });
 
         return root;
     }
 
-    // === Acciones ===
+    // Aplica filtros combinados (estado + DNI)
+    private void aplicarFiltros() {
+        String q = etBuscar.getText() != null ? etBuscar.getText().toString().trim() : "";
+        int spinnerPos = spFiltroEstado.getSelectedItemPosition(); // 0=Todos,1=Activo,2=Inactivo
 
+        List<Socio> out = new ArrayList<>();
+        for (Socio s : sociosOriginal) {
+            // filtro por estado
+            boolean okEstado = true;
+            if (spinnerPos == 1) okEstado = (s.estado == 0); // Activo
+            else if (spinnerPos == 2) okEstado = (s.estado == 1); // Inactivo
+
+            // filtro por dni
+            boolean okDni = q.isEmpty() || (s.dni != null && s.dni.contains(q));
+
+            if (okEstado && okDni) out.add(s);
+        }
+
+        adapter.setItems(out);
+    }
+
+    // === Acciones ===
     @Override
     public void onEdit(Socio socio) {
-        //Editar:
         Intent i = new Intent(requireContext(), EditarMiembroActivity.class);
         i.putExtra("dni", socio.dni);
         startActivity(i);
     }
-
 
     @Override
     public void onDelete(Socio socio) {
@@ -152,5 +205,4 @@ public class ConsultaSociosFragment extends Fragment
             dialog.show();
         }
     }
-
 }

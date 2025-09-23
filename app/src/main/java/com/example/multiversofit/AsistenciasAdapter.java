@@ -27,10 +27,6 @@ public class AsistenciasAdapter extends RecyclerView.Adapter<AsistenciasAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Asistencia asistencia = lista.get(position);
-        holder.tvId.setText("ID: " + asistencia.getId());
-        holder.tvNombre.setText("Nombre: " + asistencia.getNombre());
-        holder.tvDni.setText("DNI: " + asistencia.getDni());
-        holder.tvFecha.setText("Fecha: " + asistencia.getFecha());
     }
 
     @Override

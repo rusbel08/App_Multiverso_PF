@@ -1,27 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     android:background="@drawable/bg_gradient"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/etBuscarDni"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Buscar por DNI"
-        android:inputType="number"
-        android:paddingHorizontal="12dp"
-        android:backgroundTint="@android:color/white"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/darker_gray"/>
+    <!-- Contenedor horizontal para el buscador y el filtro -->
+    <LinearLayout
+        android:id="@+id/layoutFiltros"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:weightSum="10"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Buscar por DNI -->
+        <EditText
+            android:id="@+id/etBuscarDni"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="5"
+            android:hint="Buscar por DNI"
+            android:inputType="number"
+            android:paddingHorizontal="12dp"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"/>
+
+        <!-- Filtro por estado -->
+        <Spinner
+            android:id="@+id/spFiltroEstado"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="3"
+            android:backgroundTint="@android:color/white"
+            android:spinnerMode="dropdown"
+            android:popupBackground="@android:color/white"/>
+    </LinearLayout>
+
+    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSocios"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="12dp"
-        android:layout_weight="1"
-        android:background="@android:color/transparent"/>
-</LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/layoutFiltros"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fabAgregarSocios"/>
+
+    <!-- Botón flotante -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAgregarSocios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/black"
+        app:tint="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

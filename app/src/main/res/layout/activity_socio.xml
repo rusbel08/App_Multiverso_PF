@@ -6,79 +6,129 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient">
 
-    <!-- Contenedor principal -->
+    <!-- Contenedor QR y datos -->
+
+    <ImageView
+        android:id="@+id/btnLogout"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="340dp"
+        android:contentDescription="Salir"
+        android:src="@drawable/ic_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardSocio"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="24dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/btnAsistencias"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="0dp"
-        android:layout_margin="20dp"
-        android:padding="20dp"
-        app:cardBackgroundColor="@android:color/transparent">
-
+        app:cardCornerRadius="24dp"
+        app:cardElevation="10dp"
+        app:cardBackgroundColor="#66000000">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:padding="10dp"
-            android:background="@drawable/card_border">
+            android:padding="24dp">
 
             <!-- QR -->
             <ImageView
                 android:id="@+id/imgQr"
-                android:layout_width="220dp"
-                android:layout_height="220dp"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
                 android:layout_marginBottom="20dp"
                 android:contentDescription="Código QR" />
 
-            <!-- NOMBRE -->
+            <!-- Nombre -->
             <TextView
                 android:id="@+id/tvNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text=""
+                android:layout_marginBottom="16dp"
+                android:text="Nombre del Socio"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <!-- DNI -->
-            <TextView
-                android:id="@+id/tvDni"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="DNI: "
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_badge" />
+
+                <TextView
+                    android:id="@+id/tvDni"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="DNI: "
+                    android:textColor="#E0E0E0"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
 
             <!-- Estado Membresía -->
-            <TextView
-                android:id="@+id/tvEstadoMembresia"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:text="Membresía: "
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_membership" />
+
+                <TextView
+                    android:id="@+id/tvEstadoMembresia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Membresía: "
+                    android:textColor="#FFD700"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <!-- Fecha Fin Membresía -->
-            <TextView
-                android:id="@+id/tvFinMembresia"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vence: "
-                android:textColor="#F3F4F8"
-                android:textSize="16sp" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_calendar" />
+
+                <TextView
+                    android:id="@+id/tvFinMembresia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Vence: "
+                    android:textColor="#B0BEC5"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif" />
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -88,16 +138,14 @@
         android:id="@+id/btnAsistencias"
         android:layout_width="0dp"
         android:layout_height="55dp"
-        android:layout_margin="20dp"
-        android:layout_marginBottom="128dp"
-        android:backgroundTint="@color/black"
-        android:fontFamily="sans-serif-medium"
+        android:layout_margin="24dp"
         android:text="Ver mis asistencias"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
+       android:backgroundTint="@color/black"
+        android:fontFamily="sans-serif-medium"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

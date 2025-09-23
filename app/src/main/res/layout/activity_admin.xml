@@ -6,12 +6,24 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient">
 
+
     <!-- Contenedor de fragmentos -->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation" />
+
+    <!-- Icono de salir arriba a la derecha -->
+    <ImageView
+        android:id="@+id/btnLogout"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_logout"
+        android:contentDescription="Salir" />
 
     <!-- Menú inferior -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
