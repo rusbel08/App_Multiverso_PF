@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (!task.isSuccessful() || task.getResult().isEmpty()) {
                         ToastUtils.showCustomToast(this, "Credenciales inválidas");
+                        limpiarCampos();
                         return;
                     }
 
@@ -78,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                     String storedPass = doc.getString("pass");
                     if (storedPass == null || !storedPass.equals(p)) {
                         ToastUtils.showCustomToast(this, "Credenciales inválidas");
+                        limpiarCampos();
                         return;
                     }
 
@@ -85,13 +87,14 @@ public class LoginActivity extends AppCompatActivity {
                     String username = doc.getString("username");
                     String role = doc.getString("role");
 
-                    //  Si el rol es SOCIO, valida estado en colección "socios"
+                    // Si es SOCIO, validar estado
                     if ("SOCIO".equalsIgnoreCase(role)) {
                         db.collection("socios").document(userId)
                                 .get()
                                 .addOnSuccessListener(socioDoc -> {
                                     if (!socioDoc.exists()) {
                                         ToastUtils.showCustomToast(this, "No se encontró socio asociado");
+                                        limpiarCampos();
                                         return;
                                     }
 
@@ -103,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     if (estado == 1) {
                                         ToastUtils.showCustomToast(this, "Tu usuario está INACTIVO, comunícate con recepción");
+                                        limpiarCampos();
                                         return;
                                     }
 
@@ -113,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                                 })
                                 .addOnFailureListener(e -> {
                                     ToastUtils.showCustomToast(this, "Error al validar socio: " + e.getMessage());
+                                    limpiarCampos();
                                 });
 
                     } else {
@@ -124,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> {
                     ToastUtils.showCustomToast(this, "Error al conectar: " + e.getMessage());
+                    limpiarCampos();
                 });
     }
 
@@ -132,6 +138,11 @@ public class LoginActivity extends AppCompatActivity {
                 ? new Intent(this, AdminActivity.class)
                 : new Intent(this, SocioActivity.class);
         startActivity(i);
+    }
+
+    private void limpiarCampos(){
+        etUsuario.setText("");
+        etContrasena.setText("");
     }
 
 }

@@ -96,7 +96,6 @@ public class SocioActivity extends AppCompatActivity {
 
                 Date fechaFinDate = null;
 
-
                 Timestamp ts = documentSnapshot.getTimestamp("fechaFin");
                 if (ts != null) {
                     fechaFinDate = ts.toDate();
@@ -119,7 +118,26 @@ public class SocioActivity extends AppCompatActivity {
                     tvFinMembresia.setText("Vence: " + fechaStr);
 
                     boolean activa = new Date().before(fechaFinDate);
-                    tvEstadoMembresia.setText("Membresía: " + (activa ? "Activa" : "Vencida"));
+
+                    // Cambiar colores según estado
+                    ImageView iconMembership = findViewById(R.id.ic_membership_icon);
+
+                    if (activa) {
+                        tvEstadoMembresia.setText("Membresía: Activa");
+                        tvEstadoMembresia.setTextColor(getResources().getColor(android.R.color.holo_green_light));
+
+                        if (iconMembership != null) {
+                            iconMembership.setColorFilter(getResources().getColor(android.R.color.holo_green_light));
+                        }
+                    } else {
+                        tvEstadoMembresia.setText("Membresía: Vencida");
+                        tvEstadoMembresia.setTextColor(getResources().getColor(android.R.color.holo_red_light));
+
+                        if (iconMembership != null) {
+                            iconMembership.setColorFilter(getResources().getColor(android.R.color.holo_red_light));
+                        }
+                    }
+
                 } else {
                     tvFinMembresia.setText("Vence: -");
                     tvEstadoMembresia.setText("Membresía: -");
