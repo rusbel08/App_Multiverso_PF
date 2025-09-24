@@ -133,6 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    //Metodo para dirigirse al Activity, segun el rol
     private void goToRole(String role) {
         Intent i = "ADMIN".equals(role)
                 ? new Intent(this, AdminActivity.class)
@@ -140,6 +141,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    //Metodo para limpiar campos "Usuario" y "Contraseña"
     private void limpiarCampos(){
         etUsuario.setText("");
         etContrasena.setText("");
